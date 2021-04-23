@@ -71,48 +71,48 @@ namespace FirstSnifer
 
             if (MyPacket is PacketDotNet.EthernetPacket)
             {
-                //var eth = ((PacketDotNet.EthernetPacket)MyPacket);
-                //Console.WriteLine("Original Eth packet: " + eth.ToString() + "\n");
+                var eth = ((PacketDotNet.EthernetPacket)MyPacket);
+                Console.WriteLine("Original Eth packet: " + eth.ToString() + "\n");
 
-                ////Manipulate ethernet parameters
-                //eth.SourceHardwareAddress = PhysicalAddress.Parse("00-11-22-33-44-55");
-                //eth.DestinationHardwareAddress = PhysicalAddress.Parse("00-99-88-77-66-55");
+                //Manipulate ethernet parameters
+                eth.SourceHardwareAddress = PhysicalAddress.Parse("00-11-22-33-44-55");
+                eth.DestinationHardwareAddress = PhysicalAddress.Parse("00-99-88-77-66-55");
 
-                //Console.WriteLine("Changed Eth packet: " + eth.ToString() + "\n");
+                Console.WriteLine("Changed Eth packet: " + eth.ToString() + "\n");
 
-                //Console.WriteLine("--------------------------------------------");
+                Console.WriteLine("--------------------------------------------");
 
                 var ip = MyPacket.Extract<IPPacket>(); // GetEncapsulated
                 if (ip != null)
                 {
-                    //Console.WriteLine("Original IP packet: " + ip.ToString() + "\n");
+                    Console.WriteLine("Original IP packet: " + ip.ToString() + "\n");
 
-                    ////manipulate IP parameters
-                    //ip.SourceAddress = System.Net.IPAddress.Parse("1.2.3.4");
-                    //ip.DestinationAddress = System.Net.IPAddress.Parse("44.33.22.11");
-                    //ip.TimeToLive = 11;
+                    //manipulate IP parameters
+                    ip.SourceAddress = System.Net.IPAddress.Parse("1.2.3.4");
+                    ip.DestinationAddress = System.Net.IPAddress.Parse("44.33.22.11");
+                    ip.TimeToLive = 11;
 
-                    //Console.WriteLine("Changed IP packet: " + ip.ToString() + "\n");
-                    //Console.WriteLine("--------------------------------------------");
+                    Console.WriteLine("Changed IP packet: " + ip.ToString() + "\n");
+                    Console.WriteLine("--------------------------------------------");
 
                     var tcp = MyPacket.Extract<TcpPacket>();
 
                     if (tcp != null)
                     {
-                        //Console.WriteLine("Original TCP packet: " + tcp.ToString() + "\n" );
+                        Console.WriteLine("Original TCP packet: " + tcp.ToString() + "\n");
 
                         //manipulate TCP parameters
-                        //tcp.SourcePort = 9999;                        
-                        //tcp.DestinationPort = 8888;
-                        //tcp.Synchronize = !tcp.Synchronize; // Syn = Synchronize
-                        //tcp.Finished = !tcp.Finished; // Fin = Finished
-                        //tcp.Acknowledgment = !tcp.Acknowledgment; // Ack = Acknowledgment
-                        //tcp.WindowSize = 500;
-                        //tcp.AcknowledgmentNumber = 800;
-                        //tcp.SequenceNumber = 800;
+                        tcp.SourcePort = 9999;
+                        tcp.DestinationPort = 8888;
+                        tcp.Synchronize = !tcp.Synchronize; // Syn = Synchronize
+                        tcp.Finished = !tcp.Finished; // Fin = Finished
+                        tcp.Acknowledgment = !tcp.Acknowledgment; // Ack = Acknowledgment
+                        tcp.WindowSize = 500;
+                        tcp.AcknowledgmentNumber = 800;
+                        tcp.SequenceNumber = 800;
 
-                        //Console.WriteLine("Changed TCP packet: " + tcp.ToString() + "\n");
-                        //Console.WriteLine("--------------------------------------------");
+                        Console.WriteLine("Changed TCP packet: " + tcp.ToString() + "\n");
+                        Console.WriteLine("--------------------------------------------");
 
 
                         var hex = BitConverter.ToString(tcp.PayloadData);
@@ -137,27 +137,27 @@ namespace FirstSnifer
                         Console.WriteLine("--------------------------------------------");
                     }
 
-                   
 
-                    
 
-                    //var udp = MyPacket.Extract<UdpPacket>();
-                    //if (udp != null)
-                    //{
-                    //    Console.WriteLine("Original UDP packet: " + udp.ToString() + "\n");
 
-                    //    //manipulate UDP parameters
-                    //    udp.SourcePort = 9999;
-                    //    udp.DestinationPort = 8888;
-                        
 
-                    //    Console.WriteLine("Changed UDP packet: " + udp.ToString() + "\n");
-                    //}
+                    var udp = MyPacket.Extract<UdpPacket>();
+                    if (udp != null)
+                    {
+                        Console.WriteLine("Original UDP packet: " + udp.ToString() + "\n");
+
+                        //manipulate UDP parameters
+                        udp.SourcePort = 9999;
+                        udp.DestinationPort = 8888;
+
+
+                        Console.WriteLine("Changed UDP packet: " + udp.ToString() + "\n");
+                    }
                 }
 
-                //Console.WriteLine("Manipulated Eth packet: " + eth.ToString());
+                Console.WriteLine("Manipulated Eth packet: " + eth.ToString());
 
-               
+
             }
         }
     }
